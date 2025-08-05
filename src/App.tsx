@@ -1,6 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Download, Image, Settings } from 'lucide-react';
 
+// Determine API base URL based on environment
+const getApiBaseUrl = () => {
+  // In development, use relative URLs (proxied by Vite)
+  if (import.meta.env.DEV) {
+    return '';
+  }
+  // In production, use the full HTTPS URL
+  return 'https://api.pngtosvg.craftycatz.site';
+};
+
 interface ConversionOptions {
   preset?: string;
   threshold?: number;
@@ -164,8 +174,8 @@ function App() {
           formData.append('optCurve', options.optCurve.toString());
         if (options.turnPolicy)
           formData.append('turnPolicy', options.turnPolicy);
-
-        const response = await fetch('/api/bulk-convert', {
+        formData.append('bulk', 'true');
+        const response = await fetch(`${getApiBaseUrl()}/api/bulk-convert`, {
           method: 'POST',
           body: formData,
         });
@@ -193,7 +203,7 @@ function App() {
         if (options.turnPolicy)
           formData.append('turnPolicy', options.turnPolicy);
 
-        const response = await fetch('/api/convert', {
+        const response = await fetch(`${getApiBaseUrl()}/api/convert`, {
           method: 'POST',
           body: formData,
         });
