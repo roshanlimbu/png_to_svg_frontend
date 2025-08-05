@@ -7,8 +7,8 @@ const getApiBaseUrl = () => {
   if (import.meta.env.DEV) {
     return '';
   }
-  // In production, use the same domain (no subdomain to avoid CORS)
-  return '';
+  // In production, use the API subdomain since you have separate CloudPanel sites
+  return 'https://api.pngtosvg.craftycatz.site';
 };
 
 interface ConversionOptions {
