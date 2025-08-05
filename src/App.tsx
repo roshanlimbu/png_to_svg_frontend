@@ -7,8 +7,8 @@ const getApiBaseUrl = () => {
   if (import.meta.env.DEV) {
     return '';
   }
-  // In production, use the full HTTPS URL
-  return 'https://api.pngtosvg.craftycatz.site';
+  // In production, use the same domain (no subdomain to avoid CORS)
+  return '';
 };
 
 interface ConversionOptions {
